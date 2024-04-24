@@ -27,7 +27,7 @@ const Posts = () => {
       <div>
         <h1>Post fetched via API</h1>
         <ul>
-          {posts.map((post) => (
+          {posts && posts.map((post) => (
             <li key={post.id}>
               <div className="blog-media">
                 <div className="wrapper">
