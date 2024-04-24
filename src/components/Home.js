@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
+import { Helmet } from 'react-helmet-async';
 
 const GET_POSTS = gql`
   query {
@@ -27,6 +28,11 @@ const Home = () => {
     if (error) return <p>Error: {error.message}</p>;
 
     return (
+        <>
+      <Helmet>
+        <title>React SEO | Post Page</title>
+        <meta name="description" content="Description for About Page" />
+      </Helmet>
         <div>
             <h1>Post fetched via graphql</h1>
             <ul>
@@ -51,6 +57,7 @@ const Home = () => {
 
             </ul>
         </div>
+        </>
     );
 };
 
