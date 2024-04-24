@@ -18,8 +18,7 @@ const AppRouter = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-         <Route path="/posts-list" element={<Posts />} />
-        {/*<Route path="/posts" component={Posts} /> */}
+         <Route path="posts-list" element={<Posts />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </Router>

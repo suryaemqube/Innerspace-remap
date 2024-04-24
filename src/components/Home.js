@@ -38,16 +38,15 @@ const Home = () => {
             <ul>
                 {data.posts.nodes.map((post) => (
                     <li key={post.id}>
-                        <div class="blog-media">
-                            <div class="wrapper">
-                                <div class="holder">
+                        <div className="blog-media">
+                            <div className="wrapper">
+                                <div className="holder">
                                     <a href={post.uri}>
                                         <img src={post.featuredImage.node.link} alt='' />
-                                        {console.log(post)}
                                     </a>
                                     <h3 dangerouslySetInnerHTML={{ __html: post.title }} />
                                     <p dangerouslySetInnerHTML={{ __html: post.excerpt }} />
-                                    <a class="more" href={post.uri}>read more</a>
+                                    <a className="more" href={post.uri}>read more</a>
                                 </div>
                             </div>
                         </div>
