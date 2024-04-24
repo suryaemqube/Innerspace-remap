@@ -20,7 +20,7 @@ function NoMatch() {
         path:"/",
         element:<Home />,
     },{
-        path:"/posts",
+        path:"posts",
         element:<Posts />,
     },{
         path:"*",
