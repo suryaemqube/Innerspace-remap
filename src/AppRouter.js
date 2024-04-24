@@ -17,8 +17,8 @@ const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-         <Route path="posts-list" element={<Posts />} />
+        {/* <Route path="/" element={<Home />} /> */}
+         <Route path="/" element={<Posts />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </Router>
