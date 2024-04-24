@@ -1,8 +1,8 @@
 // AppRouter.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
-// import Home from './components/Home';
-import Posts from './components/Post';
+import Home from './components/Home';
+import Posts from './components/Posts';
 // import Posts from './components/Posts';
 // import NotFound from './components/NotFound';
 function NoMatch() {
@@ -18,7 +18,7 @@ const AppRouter = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-         <Route path="post" element={<Posts />} />
+         <Route path="posts" element={<Posts />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </Router>
