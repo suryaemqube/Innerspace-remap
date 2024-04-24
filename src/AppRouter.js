@@ -5,15 +5,22 @@ import Home from './components/Home';
 import Posts from './components/Post';
 // import Posts from './components/Posts';
 // import NotFound from './components/NotFound';
-
+function NoMatch() {
+    return (
+      <div style={{ padding: 20 }}>
+        <h2>404: Page Not Found</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adip.</p>
+      </div>
+    );
+  }
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" exact element={<Home />} />
-         <Route path="/posts-list" exact element={<Posts />} />
+        <Route path="/" element={<Home />} />
+         <Route path="/posts-list" element={<Posts />} />
         {/*<Route path="/posts" component={Posts} /> */}
-        {/* <Route component={NotFound} /> */}
+        <Route path="*" element={<NoMatch />} />
       </Routes>
     </Router>
   );
