@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import Seo from '../components/SeoMata';
 const Posts = () => {
   const [posts, setPosts] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     try {
-  //       const response = await axios.get('https://app.innerspacedxb.com/wp-json/wp/v2/posts?_embed');
-  //       setPosts(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get('https://app.innerspacedxb.com/wp-json/wp/v2/posts?_embed');
+        setPosts(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  //   fetchPosts();
-  // }, []);
+    fetchPosts();
+  }, []);
 
   return (
     <>
@@ -25,7 +25,7 @@ const Posts = () => {
 
       <div>
         <h1>Post fetched via API</h1>
-        {/* <ul>
+        <ul>
           {posts && posts.map((post) => (
             <li key={post.id}>
               <div className="blog-media">
@@ -42,7 +42,7 @@ const Posts = () => {
               </div>
             </li >
           ))}
-        </ul > */}
+        </ul >
       </div >
     </>
   );
