@@ -237,7 +237,7 @@ const Contact = ({ }) => {
   const pageAcf = data?.page?.contactUsLayout || [];
   return (
     <>
-      <Seo pageUrl={`${WEBSITE_URL}/contact-us/`}></Seo>
+     <Seo seoData={data?.page?.seo} bodyclassName={"home"} pageUrl={data?.page?.uri}/>
       <Layout>
 
         <section className="header-image">
