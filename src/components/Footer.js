@@ -11,7 +11,7 @@ import iconPinterest from "../assets/img/icon-pinterest.svg";
 import iconFb from "../assets/img/icon-fb.svg";
 import iconYoutube from "../assets/img/icon-youtube.svg";
 import iconLinkedin from "../assets/img/icon-linkedin.svg";
-const WEBSITE_URL = process.env.GATSBY_BASE_URL;
+const WEBSITE_URL = process.env.REACT_APP_BASE_URL;
 
 function Footer({ }) {
   const [token, setToken] = useState("");
