@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { gsap } from "gsap";
@@ -11,7 +12,6 @@ export default function Slider({ home, brand }) {
   const [swiper1, setSwiper1] = useState(null);
   const [swiper2, setSwiper2] = useState(null);
   const [swiper3, setSwiper3] = useState(null);
-  const [windowWidth, setWindowWidth] = useState(0);
 
   const brandElem = useRef();
 
@@ -61,7 +61,7 @@ export default function Slider({ home, brand }) {
         />
       )}
       <div className="container flex">
-        {windowWidth > 768 && (
+        {typeof window !== 'undefined' && window.innerWidth > 768 && (
           <>
             <Swiper
               onSwiper={(s) => {

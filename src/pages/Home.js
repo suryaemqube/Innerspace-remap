@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
+import React, { useState, useRef, lazy, Suspense } from "react";
 import { useQuery, gql } from '@apollo/client';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Parallax, Autoplay } from "swiper/modules";
@@ -15,7 +15,7 @@ import 'swiper/css/autoplay';
 
 const SliderLazy = lazy(() => import("../components/lazyload/BrandsSlider"));
 
-const Home = ({ }) => {
+const Home = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -116,7 +116,6 @@ const Home = ({ }) => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  console.log("1: ", home && home?.designByRoomSlider, error)
   return (
     <>
       <Seo seoData={data?.page?.seo} bodyclassName={"home"} />

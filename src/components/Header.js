@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuery, gql } from '@apollo/client';
 import { flatListToHierarchical } from "../utils";
 
-import defaultlogo from "../assets/img/logo-innerspace.svg";
 import { NavLink } from "react-router-dom";
 
-const Header = ({ }) => {
+const Header = () => {
     const primaryMenu = gql`
     query{
         menuItems(first: 20, where: {location: PRIMARY}) {
@@ -29,16 +28,16 @@ const Header = ({ }) => {
 
     var primary = flatListToHierarchical(data.menuItems.edges);
 
-    const shortUrl = (fullUrl) => {
-        var url = fullUrl;
-        try {
-            const urlObject = new URL(url);
-            url = urlObject.pathname ? urlObject.pathname : url;
-        } catch (error) {
-            url = fullUrl;
-        }
-        return url;
-    };
+    // const shortUrl = (fullUrl) => {
+    //     var url = fullUrl;
+    //     try {
+    //         const urlObject = new URL(url);
+    //         url = urlObject.pathname ? urlObject.pathname : url;
+    //     } catch (error) {
+    //         url = fullUrl;
+    //     }
+    //     return url;
+    // };
 
     const MenuItem = ({ item, level }) => {
         const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);

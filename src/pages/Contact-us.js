@@ -9,7 +9,7 @@ import Layout from "../components/layout";
 import { getToken } from "../hooks/token";
 
 const Map = lazy(() => import("../components/lazyload/ContactMap"))
-const Contact = ({ }) => {
+const Contact = () => {
   const WEBSITE_URL = process.env.REACT_APP_BASE_URL;
   const MEDIA_URL = process.env.REACT_APP_MEDIA_URL;
   const [token, setToken] = useState("");

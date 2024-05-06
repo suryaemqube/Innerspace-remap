@@ -5,7 +5,7 @@ import { getToken } from "../hooks/token";
 import { NavLink } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 
-import defaultlogo from "../assets/img/logo-innerspace.svg";
+
 import iconInsta from "../assets/img/icon-insta.svg";
 import iconPinterest from "../assets/img/icon-pinterest.svg";
 import iconFb from "../assets/img/icon-fb.svg";
@@ -13,11 +13,9 @@ import iconYoutube from "../assets/img/icon-youtube.svg";
 import iconLinkedin from "../assets/img/icon-linkedin.svg";
 const WEBSITE_URL = process.env.REACT_APP_BASE_URL;
 
-function Footer({ }) {
+function Footer() {
   const [token, setToken] = useState("");
   const [formMessage, setFormMessage] = useState("");
-  const [captchaExpression, setCaptchaExpression] = useState("");
-  const [captchaResult, setCaptchaResult] = useState("");
 
   const query = gql`
   {
@@ -45,8 +43,7 @@ function Footer({ }) {
 
   const { loading, error, data } = useQuery(query);
 
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error.message}</p>;
+
 
   const footerMenu = data?.menuItems.nodes || [];
   const options = data?.acfOptions?.footerContent || [];
@@ -162,10 +159,9 @@ function Footer({ }) {
 
 
   useEffect(() => {
-    document.addEventListener("scroll", function () {
+    function handleScroll() {
       if (typeof window !== "undefined") {
-        var scrollPosition =
-          window.pageYOffset || document.documentElement.scrollTop;
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
 
         var scrolltotop = document.querySelector("#scrollUp");
 
@@ -179,8 +175,14 @@ function Footer({ }) {
           }
         }
       }
-    });
-  });
+    }
+
+    document.addEventListener("scroll", handleScroll);
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
 
   const scrollToTop = (e) => {
     e.preventDefault();
@@ -191,33 +193,48 @@ function Footer({ }) {
 
 
   useEffect(() => {
+    // Disable cut, copy, and paste
+    document.oncut = () => false;
+    document.oncopy = () => false;
+    document.onpaste = () => false;
 
-    //Disable cut copy paste
-    document.oncut = new Function("return false");
-    document.oncopy = new Function("return false");
-    document.onpaste = new Function("return false");
+    // Disable mouse right-click
+    document.oncontextmenu = () => false;
 
-    //Disable mouse right click 
-    document.oncontextmenu = new Function("return false");
+    // Disable screen capture
 
-    // TO DISABLE SCREEN CAPTURE
-    document.addEventListener('keyup', (e) => {
-      if (e.key == 'PrintScreen') {
+    function handleKeyUp(e) {
+      if (e.key === 'PrintScreen') {
         navigator.clipboard.writeText('');
         alert('Screenshots disabled!');
       }
-    });
+    }
+    document.addEventListener('keyup', handleKeyUp);
 
-    // TO DISABLE PRINTS WHIT CTRL+P
-    document.addEventListener('keydown', (e) => {
-      if (e.ctrlKey && e.key == 'p') {
+    // Disable printing with Ctrl+P
+    function handleKeyDown(e) {
+      if (e.ctrlKey && e.key === 'p') {
         alert('This section is not allowed to print or export to PDF');
-        e.cancelBubble = true;
         e.preventDefault();
-        e.stopImmediatePropagation();
+        e.stopPropagation();
       }
-    });
+    }
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      // Cleanup event listeners if needed
+      document.oncut = null;
+      document.oncopy = null;
+      document.onpaste = null;
+      document.oncontextmenu = null;
+      document.removeEventListener('keyup', handleKeyUp);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
+
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <>
@@ -340,6 +357,7 @@ function Footer({ }) {
                     href="https://goo.gl/maps/CFZ4WcwBxFyuyyyU8"
                     target="_blank"
                     className="get-direction"
+                    rel="noreferrer"
                   >
                     Get Directions
                   </a>
@@ -383,6 +401,7 @@ function Footer({ }) {
                         <a
                           href="https://www.facebook.com/Innerspace-Dubai-175580597410370"
                           target="_blank"
+                          rel="noreferrer"
                         >
                           <img
                             width="30"
@@ -396,6 +415,7 @@ function Footer({ }) {
                         <a
                           href="https://www.instagram.com/innerspacedubai/"
                           target="_blank"
+                          rel="noreferrer"
                         >
                           <img
                             width="30"
@@ -409,6 +429,7 @@ function Footer({ }) {
                         <a
                           href="https://www.pinterest.com/innerspace_dubai"
                           target="_blank"
+                          rel="noreferrer"
                         >
                           <img
                             width="30"
@@ -422,6 +443,7 @@ function Footer({ }) {
                         <a
                           href="https://www.linkedin.com/company/innerspace-dubai"
                           target="_blank"
+                          rel="noreferrer"
                         >
                           <img
                             width="30"
@@ -435,6 +457,7 @@ function Footer({ }) {
                         <a
                           href="https://www.youtube.com/channel/UC2dg-skuWQBtk81lH7kxlgA"
                           target="_blank"
+                          rel="noreferrer"
                         >
                           <img
                             width="30"
@@ -459,7 +482,7 @@ function Footer({ }) {
             </div>
             <div className="designed">
               Website design{" "}
-              <a href="https://emqube.com/" target="_blank">
+              <a href="https://emqube.com/" target="_blank" rel="noreferrer">
                 emQube LLC
               </a>
             </div>
