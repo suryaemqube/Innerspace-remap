@@ -8,12 +8,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
     <div className="App">
-      <header className="App-header">
-        {/* <h1>React App</h1> */}
-      </header>
-      <main>
         <AppRouter />
-      </main>
     </div>
     </ApolloProvider>
   );

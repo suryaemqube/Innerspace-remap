@@ -2,9 +2,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Layout from './components/layout'
+
 import Home from './pages/Home';
-import Posts from './pages/Posts';
+import Contact from './pages/Contact-us';
 // import Posts from './components/Posts';
 import NoPage from "./pages/NoMatch";
 
@@ -25,12 +25,11 @@ const AppRouter = () => {
         // <RouterProvider router={router} />
         <Router>
             <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                    <Route path="posts" element={<Posts />} />
-                    {/* <Route path="contact" element={<Contact />} /> */}
+                {/* <Route path="/" element={<Layout />}> */}
+                    <Route path="/" element={<Home />} />
+                    <Route path="contact-us" element={<Contact/>} />
                     <Route path="*" element={<NoPage />} />
-                </Route>
+                {/* </Route> */}
             </Routes>
         </Router>
     );
