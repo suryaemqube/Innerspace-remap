@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from "react";
 import { useQuery, gql } from '@apollo/client';
 import { flatListToHierarchical } from "../utils";

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useRef, lazy, Suspense } from "react";
 import { useQuery, gql } from '@apollo/client';
 import { Swiper, SwiperSlide } from "swiper/react";

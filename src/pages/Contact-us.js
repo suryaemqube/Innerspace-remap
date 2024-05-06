@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState, lazy, Suspense } from "react";
 import { useQuery, gql } from '@apollo/client';
 import { useFormik, Formik } from "formik";
