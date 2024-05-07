@@ -247,12 +247,14 @@ const Contact = () => {
               <div className="holder">
                 {typeof window !== "undefined" &&
                   window.innerWidth > 767 && (
-                    <img src={page.featuredImage.node.mediaItemUrl} alt={page.featuredImage.node.altText} />
+                    <LazyLoad offset={100}>
+                    <img src={page.featuredImage.node.mediaItemUrl} alt={page.featuredImage.node.altText} /></LazyLoad>
                   )}
 
                 {typeof window !== "undefined" &&
                   window.innerWidth < 767 && (
-                    <img src={page.mobileImages.mobileHeaderImage.mediaItemUrl} alt={page.mobileImages.mobileHeaderImage.altText} />
+                    <LazyLoad offset={100}>
+                    <img src={page.mobileImages.mobileHeaderImage.mediaItemUrl} alt={page.mobileImages.mobileHeaderImage.altText} /></LazyLoad>
                   )}
 
               </div>

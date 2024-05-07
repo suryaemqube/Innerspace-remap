@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import LazyLoad from "react-lazy-load";
 import swiperNext from "../../assets/img/swiper-next.png";
 import { NavLink } from "react-router-dom";
 
@@ -88,9 +88,10 @@ export default function Slider({ home, brand }) {
                     className="swiper-slide"
                   // style="background: url(<?php echo $brand_main_img_home; ?>) no-repeat center; background-size: cover;"
                   >
-                    <img src={slide.featuredImage.node.mediaItemUrl} width="549"
-                      height="549" alt={slide.featuredImage.node.altText} loading="lazy" className="swiper-slide swiper-lazy" />
-
+                    <LazyLoad offset={100}>
+                      <img src={slide.featuredImage.node.mediaItemUrl} width="549"
+                        height="549" alt={slide.featuredImage.node.altText} loading="lazy" className="swiper-slide swiper-lazy" />
+                    </LazyLoad>
                     <NavLink
                       to={slide.brands.brandRelationshipField.link}
                       className="view-more"
@@ -101,14 +102,15 @@ export default function Slider({ home, brand }) {
                       to={slide.brands.brandRelationshipField.link}
                       className="dblock"
                     ></NavLink>
-
-                    <img
-                      width="132"
-                      height="42"
-                      className={`brand-logo ${slide.brands.brandRelationshipField.title}`}
-                      src={slide.brands.brandLogo.mediaItemUrl}
-                      alt={`Brand ${slide.brands.brandLogo.altText} Logo`}
-                    />
+                    <LazyLoad offset={100}>
+                      <img
+                        width="132"
+                        height="42"
+                        className={`brand-logo ${slide.brands.brandRelationshipField.title}`}
+                        src={slide.brands.brandLogo.mediaItemUrl}
+                        alt={`Brand ${slide.brands.brandLogo.altText} Logo`}
+                      />
+                    </LazyLoad>
                   </SwiperSlide>
                 ))}
             </Swiper>
@@ -138,9 +140,10 @@ export default function Slider({ home, brand }) {
                     className="swiper-slide"
                   // style="background: url(<?php echo $brand_main_img_home; ?>) no-repeat center; background-size: cover;"
                   >
-                    <img src={slide.featuredImage.node.mediaItemUrl} width="549"
-                      height="549" alt={slide.featuredImage.node.altText} loading="lazy" className="swiper-slide swiper-lazy" />
-
+                    <LazyLoad offset={100}>
+                      <img src={slide.featuredImage.node.mediaItemUrl} width="549"
+                        height="549" alt={slide.featuredImage.node.altText} loading="lazy" className="swiper-slide swiper-lazy" />
+                    </LazyLoad>
 
                     <NavLink
                       to={slide.brands.brandRelationshipField.link}
@@ -152,16 +155,16 @@ export default function Slider({ home, brand }) {
                       to={slide.brands.brandRelationshipField.link}
                       className="dblock"
                     ></NavLink>
-
-                    <img
-                      width="132"
-                      height="42"
-                      className={`brand-logo ${slide.brands.brandRelationshipField.title}`}
-                      src={slide.brands.brandLogo.mediaItemUrl}
-                      alt={`Brand ${slide.brands.brandLogo.altText} Logo`}
-                      loading="lazy"
-                    />
-
+                    <LazyLoad offset={100}>
+                      <img
+                        width="132"
+                        height="42"
+                        className={`brand-logo ${slide.brands.brandRelationshipField.title}`}
+                        src={slide.brands.brandLogo.mediaItemUrl}
+                        alt={`Brand ${slide.brands.brandLogo.altText} Logo`}
+                        loading="lazy"
+                      />
+                    </LazyLoad>
                   </SwiperSlide>
                 ))}
             </Swiper>
@@ -201,8 +204,9 @@ export default function Slider({ home, brand }) {
                 className="swiper-slide"
               // style="background: url(<?php echo $brand_main_img_home; ?>) no-repeat center; background-size: cover;"
               >
-                <img src={slide.featuredImage.node.mediaItemUrl} width="549"
-                  height="549" alt={slide.featuredImage.node.altText} loading="lazy" className="swiper-slide swiper-lazy" />
+                <LazyLoad offset={100}>
+                  <img src={slide.featuredImage.node.mediaItemUrl} width="549"
+                    height="549" alt={slide.featuredImage.node.altText} loading="lazy" className="swiper-slide swiper-lazy" /></LazyLoad>
                 <NavLink
                   to={slide.brands.brandRelationshipField.link}
                   className="view-more"
@@ -213,15 +217,15 @@ export default function Slider({ home, brand }) {
                   to={slide.brands.brandRelationshipField.link}
                   className="dblock"
                 ></NavLink>
-
-                <img
-                  width="132"
-                  height="42"
-                  className={`brand-logo ${slide.brands.brandRelationshipField.title}`}
-                  src={slide.brands.brandLogo.mediaItemUrl}
-                  loading="lazy"
-                  alt={`Brand ${slide.brands.brandLogo.altText} Logo`}
-                />
+                <LazyLoad offset={100}>
+                  <img
+                    width="132"
+                    height="42"
+                    className={`brand-logo ${slide.brands.brandRelationshipField.title}`}
+                    src={slide.brands.brandLogo.mediaItemUrl}
+                    loading="lazy"
+                    alt={`Brand ${slide.brands.brandLogo.altText} Logo`}
+                  /></LazyLoad>
 
               </SwiperSlide>
             ))}

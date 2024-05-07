@@ -4,7 +4,7 @@ import { useFormik, Formik } from "formik";
 import { getToken } from "../hooks/token";
 import { NavLink } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
-
+import LazyLoad from "react-lazy-load";
 
 import iconInsta from "../assets/img/icon-insta.svg";
 import iconPinterest from "../assets/img/icon-pinterest.svg";
@@ -244,13 +244,16 @@ function Footer() {
           <div className="col1">
             <div className="footer-logo-wrapper">
               {options && options.mainLogo && (
+               
                 <a href="/" className="footer-logo">
-                  <img
+                   <LazyLoad offset={100}>
+                    <img
                     width="201"
                     height="99"
                     src={options.mainLogo.mediaItemUrl}
                     alt="Innserspace"
                   />
+                  </LazyLoad>
                 </a>
               )}
 

@@ -161,11 +161,13 @@ const Home = () => {
                         <div className="img-wrap">
                           {typeof window !== "undefined" &&
                             window.innerWidth > 767 && (
-                              <img src={slide.sliderImage.mediaItemUrl} width="1920" height="728" alt={slide.sliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" />
+                              <LazyLoad offset={100}>
+                              <img src={slide.sliderImage.mediaItemUrl} width="1920" height="728" alt={slide.sliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" /></LazyLoad>
                             )}
                           {typeof window !== "undefined" &&
                             window.innerWidth < 767 && (
-                              <img src={slide.mobileSliderImage.mediaItemUrl} width="1920" height="728" alt={slide.mobileSliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" />
+                              <LazyLoad offset={100}>
+                              <img src={slide.mobileSliderImage.mediaItemUrl} width="1920" height="728" alt={slide.mobileSliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" /></LazyLoad>
                             )}
                           {/* <div className="swiper-lazy-preloader"></div> */}
                         </div>
@@ -229,12 +231,16 @@ const Home = () => {
                       <div className="img-design">
                         {typeof window !== "undefined" &&
                           window.innerWidth > 767 && (
+                            <LazyLoad offset={100}>
                             <img src={slide.sliderImage.mediaItemUrl} width="1920" height="728" alt={slide.sliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" />
+                            </LazyLoad>
                           )}
 
                         {typeof window !== "undefined" &&
                           window.innerWidth <= 767 && (
+                            <LazyLoad offset={100}>
                             <img src={slide.mobileSliderImage.mediaItemUrl} width="1920" height="728" alt={slide.mobileSliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" />
+                            </LazyLoad>
                           )}
                         {/* <div className="swiper-lazy-preloader"></div> */}
                       </div>
@@ -305,7 +311,9 @@ const Home = () => {
                     </div>
                     <div className="wrapper">
                       <div className="holder">
+                      <LazyLoad offset={100}>
                         <img src={home.homePortfolioImage.mediaItemUrl} width="1920" height="728" alt={home.homePortfolioImage.altText} loading="lazy" className="alignnone size-full wp-image-175" />
+                        </LazyLoad>
                       </div>
                     </div>
                   </div>
@@ -321,7 +329,9 @@ const Home = () => {
                     </div>
                     <div className="wrapper">
                       <div className="holder">
+                      <LazyLoad offset={100}>
                         <img src={home.homeIdentityImage.mediaItemUrl} width="1920" height="728" alt={home.homeIdentityImage.altText} loading="lazy" className="alignnone size-full wp-image-176" />
+                        </LazyLoad>
                       </div>
                     </div>
                   </div>
