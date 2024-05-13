@@ -2191,7 +2191,7 @@ ul.portfolio-wrappe li:hover .wrapper .holder:before {
   transition-delay: 0ms;
 }
 
-/*# sourceMappingURL=home.css.map */
+
 
 .hero-slider .swiper-button-next,
 .hero-slider .swiper-button-prev {
@@ -2979,7 +2979,6 @@ footer .container .subscribe-wrapper input::placeholder {
 .subscribe-wrapper .wpcf7-not-valid-tip {
   display: none;
 }
-/*# sourceMappingURL=common.css.map */
 
 /* home-responsive */
 @media (max-width: 767px) {
@@ -3828,7 +3827,6 @@ footer .container .subscribe-wrapper input::placeholder {
   }
 }
 
-/*# sourceMappingURL=home-responsive.css.map */
 
 .brands .container p:first-child {
   padding-bottom: 20px;
