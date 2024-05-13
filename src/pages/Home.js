@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useRef, lazy, Suspense } from "react";
+import React, { useState, useRef, lazy, Suspense, useEffect } from "react";
 import { useQuery, gql } from '@apollo/client';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Parallax, Autoplay } from "swiper/modules";
@@ -7,6 +7,7 @@ import LazyLoad from "react-lazy-load";
 import Seo from '../components/SeoMata';
 import Layout from "../components/layout";
 import swiperNext from "../assets/img/swiper-next.png";
+import pageData from "../pageData/home/graphqlData.json"
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -109,18 +110,23 @@ const Home = () => {
     }
   }
 `;
+
+
   const { loading, error, data } = useQuery(query);
 
-  const home = data?.page?.homePageContent || [];
-  const brand = data?.brands?.nodes || [];
- 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  const home = pageData?.page?.homePageContent || [];
+  const brand = pageData?.brands?.nodes || [];
+
+  console.log(home)
+
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error: {error.message}</p>;
 
   return (
     <>
       <Seo seoData={data?.page?.seo} bodyclassName={"home"} />
       <Layout>
+
         {/* <!-- hero slider starts  --> */}
         <section className="hero-slider page-wrap">
           <div id="home-slider">
@@ -145,11 +151,11 @@ const Home = () => {
               loop={true}
               className="swiper-container vertical-swpier"
             >
-              {home &&
+              {pageData && home &&
                 home.heroSlider.map((slide, index) => (
                   <SwiperSlide
                     className={`swiper-slide swiper-slide-${index + 1}`}
-                    key={index+`yejkh`}
+                    key={index + `yejkh`}
                   >
                     <div className="swiper-image" data-swiper-parallax-x="35%">
                       <div
@@ -162,12 +168,12 @@ const Home = () => {
                           {typeof window !== "undefined" &&
                             window.innerWidth > 767 && (
                               <LazyLoad offset={100}>
-                              <img src={slide.sliderImage.mediaItemUrl} width="1920" height="728" alt={slide.sliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" /></LazyLoad>
+                                <img src={slide.sliderImage.mediaItemUrl} width="1920" height="728" alt={slide.sliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" /></LazyLoad>
                             )}
                           {typeof window !== "undefined" &&
                             window.innerWidth < 767 && (
                               <LazyLoad offset={100}>
-                              <img src={slide.mobileSliderImage.mediaItemUrl} width="1920" height="728" alt={slide.mobileSliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" /></LazyLoad>
+                                <img src={slide.mobileSliderImage.mediaItemUrl} width="1920" height="728" alt={slide.mobileSliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" /></LazyLoad>
                             )}
                           {/* <div className="swiper-lazy-preloader"></div> */}
                         </div>
@@ -190,7 +196,7 @@ const Home = () => {
         {/* <!-- hero slider ends  --> */}
         {/* <!-- design by room starts  --> */}
         <section className="design-by-room" ref={designBy}>
-          {home && (
+          {pageData && home && (
             <div
               className="container"
               dangerouslySetInnerHTML={{
@@ -221,7 +227,7 @@ const Home = () => {
               className="swiper-container design-container"
               id="designSwiper"
             >
-              {home &&
+              {pageData && home &&
                 home.designByRoomSlider.map((slide, index) => (
                   <SwiperSlide
                     key={`g;dsfjgj` + index}
@@ -232,14 +238,14 @@ const Home = () => {
                         {typeof window !== "undefined" &&
                           window.innerWidth > 767 && (
                             <LazyLoad offset={100}>
-                            <img src={slide.sliderImage.mediaItemUrl} width="1920" height="728" alt={slide.sliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" />
+                              <img src={slide.sliderImage.mediaItemUrl} width="1920" height="728" alt={slide.sliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" />
                             </LazyLoad>
                           )}
 
                         {typeof window !== "undefined" &&
                           window.innerWidth <= 767 && (
                             <LazyLoad offset={100}>
-                            <img src={slide.mobileSliderImage.mediaItemUrl} width="1920" height="728" alt={slide.mobileSliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" />
+                              <img src={slide.mobileSliderImage.mediaItemUrl} width="1920" height="728" alt={slide.mobileSliderImage.altText} loading="lazy" className="swiper-image-inner swiper-lazy swiper-image-right" />
                             </LazyLoad>
                           )}
                         {/* <div className="swiper-lazy-preloader"></div> */}
@@ -284,21 +290,20 @@ const Home = () => {
         {/* <!-- design by room ends  --> */}
 
         {/* <!-- brands starts --> */}
-        {!isLoaded && <div>Loading...</div>}
-        <LazyLoad offset={100} onContentVisible={() => setIsLoaded(true)}>
-          <Suspense
-            fallback={() => {
-              setIsLoaded(true);
-            }}
-          >
-            <SliderLazy home={home} brand={brand} />
-          </Suspense>
-        </LazyLoad>
+        {pageData &&
+          <LazyLoad offset={100} >
+            <Suspense
+              fallback={() => <div>Loading...</div>}
+            >
+              <SliderLazy home={home} brand={brand} />
+            </Suspense>
+          </LazyLoad>
+        }
         {/* <!-- brands ends --> */}
 
         {/* <!-- portfolio identity starts --> */}
         <section className="portfolio-identity testing" ref={portfolioElem}>
-          {home && (
+          {pageData && home && (
             <div className="container testing">
               <ul className="portfolio-wrappe">
                 <li>
@@ -311,9 +316,10 @@ const Home = () => {
                     </div>
                     <div className="wrapper">
                       <div className="holder">
-                      <LazyLoad offset={100}>
-                        <img src={home.homePortfolioImage.mediaItemUrl} width="1920" height="728" alt={home.homePortfolioImage.altText} loading="lazy" className="alignnone size-full wp-image-175" />
+                        <LazyLoad offset={100}>
+                          <img src={home.homePortfolioImage.mediaItemUrl} width="50" height="50" alt={home.homePortfolioImage.altText} loading="lazy" className="alignnone size-full wp-image-175" />
                         </LazyLoad>
+
                       </div>
                     </div>
                   </div>
@@ -329,8 +335,8 @@ const Home = () => {
                     </div>
                     <div className="wrapper">
                       <div className="holder">
-                      <LazyLoad offset={100}>
-                        <img src={home.homeIdentityImage.mediaItemUrl} width="1920" height="728" alt={home.homeIdentityImage.altText} loading="lazy" className="alignnone size-full wp-image-176" />
+                        <LazyLoad offset={100}>
+                          <img src={home.homeIdentityImage.mediaItemUrl} width="1920" height="728" alt={home.homeIdentityImage.altText} loading="lazy" className="alignnone size-full wp-image-176" />
                         </LazyLoad>
                       </div>
                     </div>
@@ -348,3 +354,5 @@ const Home = () => {
 };
 
 export default Home;
+
+

@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { useQuery, gql } from '@apollo/client';
 import { flatListToHierarchical } from "../utils";
+import menuData from '../pageData/primarymenu/graphqlData.json';
+
 
 import { NavLink } from "react-router-dom";
 
@@ -24,10 +26,11 @@ const Header = () => {
     `;
     const { loading, error, data } = useQuery(primaryMenu);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>Error: {error.message}</p>;
 
-    var primary = flatListToHierarchical(data.menuItems.edges);
+var primaryPre = flatListToHierarchical(menuData.menuItems.edges);    
+var primary = flatListToHierarchical(data && data.menuItems.edges);
 
     // const shortUrl = (fullUrl) => {
     //     var url = fullUrl;
@@ -116,10 +119,10 @@ const Header = () => {
                     <NavLink to="/" className="logo">
                         <img width="150" height="74" style={{'background':'.'}} src={"https://app.innerspacedxb.com/wp-content/themes/Innerspacechild/img/logo-innerspace.svg"} alt="Innerspace" />
                     </NavLink>
-                    <nav>
-                        {primary && primary.length > 0 && (
+                    <nav className="Prefetch">
+                        {primaryPre && primaryPre.length > 0 && (
                             <ul>
-                                {primary.map((item, index) => (
+                                {primaryPre.map((item, index) => (
                                     <MenuItem item={item} key={`${index}menu2`} />
                                 ))}
                             </ul>
