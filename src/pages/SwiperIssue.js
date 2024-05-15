@@ -40,7 +40,8 @@ const ScrollComponent = () => {
         const swiper = new Swiper('.swiper', {
             direction: 'vertical',
             speed: 400,
-            parallax:true
+            parallax: true,
+            allowTouchMove: false
         });
 
         const numPanels = swiper.slides.length;
@@ -64,57 +65,38 @@ const ScrollComponent = () => {
 
         const handleScroll = debounce((self, directionValue) => {
             const { direction } = self;
-            const  directV  = directionValue;
+            const directV = directionValue;
             if (directV === 'up') {
-                count = count + 1
+                count++;
                 console.log("gotoPanel up", count, numPanels);
-                if ((count === numPanels) || (count === -1)) {
-                    intentObserver.disable();
-                    preventScroll.disable();  
-                    console.log("return to normal scroll");
-                    preventScroll.scrollY(
-                        preventScroll.scrollY() + (count === numPanels ? 1 : -1)
-                    );
-                    return;
-                }
-                swiper.slideTo(count);
-                console.log('Direction:', "Up", count);
-            } else if(directV === 'down') {
-                count = count - 1
+            } else if (directV === 'down') {
+                count--;
                 console.log("gotoPanel down", count, numPanels);
-                if ((count === numPanels) || (count === -1)) {
-                    intentObserver.disable();
-                    preventScroll.disable();  
-                    console.log("return to normal scroll");
-                    preventScroll.scrollY(
-                        preventScroll.scrollY() + (count === numPanels ? 1 : -1)
-                    );
-                    return;
-                }
-                swiper.slideTo(count);
-                console.log('Direction: down', count);
             }
+
+            if (count === numPanels || count === -1) {
+                intentObserver.disable();
+                preventScroll.disable();
+                console.log("return to normal scroll");
+                preventScroll.scrollY(preventScroll.scrollY() + (count === numPanels ? 1 : -1));
+                return;
+            }
+
+            swiper.slideTo(count);
+            console.log('Direction:', directV === 'up' ? "Up" : "Down", count);
             var pagination = document.querySelector('#currentSlide');
-             pagination.innerHTML = count + 1;
+            pagination.innerHTML = count + 1;
             console.log('Direction: down', count);
-        }, 200); 
-        
+        }, 200);
+
         let intentObserver = ScrollTrigger.observe({
             type: "wheel,touch",
-            onUp: (self) => {
-                console.log("up")
-                handleScroll(self, "up")
-            },
-            onDown: (self) => {
-                console.log("down")
-                handleScroll(self, "down")
-            },
+            onUp: self => { handleScroll(self, "up") },
+            onDown: self => { handleScroll(self, "down") },
             wheelSpeed: -1,
             tolerance: 30,
             preventDefault: true,
-            onPress: (self) => {
-                ScrollTrigger.isTouch && self.event.preventDefault();
-            }
+            onPress: self => { ScrollTrigger.isTouch && self.event.preventDefault(); }
         });
         intentObserver.disable();
 
@@ -123,13 +105,13 @@ const ScrollComponent = () => {
             type: "wheel,scroll",
             allowClicks: true,
             onEnable: (self) => {
-               
+
                 isScroll = 1;
                 console.log("enable", isScroll);
                 return (self.savedScroll = self.scrollY());
             }, // save the scroll position
             onChangeY: (self) => {
-                
+
                 isScroll = 0;
                 console.log("disable", isScroll);
                 self.scrollY(self.savedScroll); // refuse to scroll
@@ -148,27 +130,20 @@ const ScrollComponent = () => {
                 start: "top top",
                 end: "+=50%",
                 markers: true,
-                onEnter: (self) => {
-                    if (preventScroll.isEnabled === false && count !== numPanels) {
-                        self.scroll(self.start);
-                        preventScroll.enable();
-                        intentObserver.enable();
-                        console.log("On Enter")
-                    }
-                },
-                onEnterBack:(self)=>{
-                    if (preventScroll.isEnabled === false && count !== -1) {
-                        self.scroll(self.start);
-                        preventScroll.enable();
-                        intentObserver.enable();
-                        console.log("On Enter")
-                    }
-                },
-                
+                onEnter: self => handleEnter(self, count, numPanels),
+                onEnterBack: self => handleEnter(self, count, -1),
                 onUpdate: handleScroll
             }
         });
 
+        function handleEnter(self, count, targetCount) {
+            if (!preventScroll.isEnabled && count !== targetCount) {
+                self.scroll(self.start);
+                preventScroll.enable();
+                intentObserver.enable();
+                console.log(targetCount === numPanels ? "On Enter" : "On EnterBack");
+            }
+        }
         return () => {
             ScrollTrigger.getAll().forEach(trigger => trigger.kill());
         };
