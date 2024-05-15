@@ -13,6 +13,7 @@
     "graphql": "^16.8.1",
     "gsap": "^3.12.5",
     "immer": "^10.1.1",
+    "lodash": "^4.17.21",
     "node-fetch": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -24,8 +25,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "webpack && react-scripts start",
-    "build": "webpack && react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

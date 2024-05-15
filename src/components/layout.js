@@ -8,9 +8,6 @@ import "../assets/css/normalize.css";
 import "../assets/css/home-common-responsive.css";
 import "../assets/css/main.css";
 import "../assets/css/inside.css";
-import "../assets/css/identity.css";
-import "../assets/css/brands.css";
-import "../assets/css/last-chance-archive.css";
 
 import "../assets/css/uifixer.css";
 const Layout = ({ children }) => {
