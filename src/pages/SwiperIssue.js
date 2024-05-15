@@ -61,34 +61,6 @@ const ScrollComponent = () => {
             console.log("end")
         });
 
-
-
-        const handleScroll = debounce((self, directionValue) => {
-            const { direction } = self;
-            const directV = directionValue;
-            if (directV === 'up') {
-                count++;
-                console.log("gotoPanel up", count, numPanels);
-            } else if (directV === 'down') {
-                count--;
-                console.log("gotoPanel down", count, numPanels);
-            }
-
-            if (count === numPanels || count === -1) {
-                intentObserver.disable();
-                preventScroll.disable();
-                console.log("return to normal scroll");
-                preventScroll.scrollY(preventScroll.scrollY() + (count === numPanels ? 1 : -1));
-                return;
-            }
-
-            swiper.slideTo(count);
-            console.log('Direction:', directV === 'up' ? "Up" : "Down", count);
-            var pagination = document.querySelector('#currentSlide');
-            pagination.innerHTML = count + 1;
-            console.log('Direction: down', count);
-        }, 200);
-
         let intentObserver = ScrollTrigger.observe({
             type: "wheel,touch",
             onUp: self => { handleScroll(self, "up") },
@@ -119,6 +91,46 @@ const ScrollComponent = () => {
         });
         preventScroll.disable();
 
+        const handleScroll = debounce((self, directionValue) => {
+            const directV = directionValue;
+           
+            if (directV === 'up') {
+                count = count + 1
+                console.log("gotoPanel up", count, numPanels);
+                if ((count === numPanels) || (count === -1)) {
+                    intentObserver.disable();
+                    preventScroll.disable();
+                    console.log("return to normal scroll");
+                    preventScroll.scrollY(
+                        preventScroll.scrollY() + (count === numPanels ? 100 : -100)
+                    );
+                    return;
+                }
+
+                swiper.slideTo(count);
+                // count = count === -1 ? 0 : 1;
+                console.log('Direction:', "Up", count);
+            } else if (directV === 'down') {
+                count = count - 1
+                console.log("gotoPanel down", count, numPanels);
+                if ((count === numPanels) || (count === -1)) {
+                    intentObserver.disable();
+                    preventScroll.disable();
+                    console.log("return to normal scroll");
+                    preventScroll.scrollY(
+                        preventScroll.scrollY() + (count === numPanels ? 1 : -1)
+                    );
+                    return;
+                }
+
+                swiper.slideTo(count);
+                console.log('Direction: down', count);
+            }
+            var pagination = document.querySelector('#currentSlide');
+            pagination.innerHTML = count + 1;
+        }, 100);
+
+
 
         gsap.to(galleryRef.current, {
             scrollTrigger: {
@@ -130,20 +142,27 @@ const ScrollComponent = () => {
                 start: "top top",
                 end: "+=50%",
                 markers: true,
-                onEnter: self => handleEnter(self, count, numPanels),
-                onEnterBack: self => handleEnter(self, count, -1),
+                onEnter: self => {
+                    console.log(count, "On Enter")
+                    if (preventScroll.isEnabled == false && count !== numPanels) {
+                        self.scroll(self.start);
+                        preventScroll.enable();
+                        intentObserver.enable();
+                    }
+                },
+                onEnterBack: self => {
+                    console.log(count, "On EnterBack")
+                    if (preventScroll.isEnabled == false && count !== -1) {
+                        self.scroll(self.start);
+                        preventScroll.enable();
+                        intentObserver.enable();
+
+                    }
+                },
                 onUpdate: handleScroll
             }
         });
 
-        function handleEnter(self, count, targetCount) {
-            if (!preventScroll.isEnabled && count !== targetCount) {
-                self.scroll(self.start);
-                preventScroll.enable();
-                intentObserver.enable();
-                console.log(targetCount === numPanels ? "On Enter" : "On EnterBack");
-            }
-        }
         return () => {
             ScrollTrigger.getAll().forEach(trigger => trigger.kill());
         };
