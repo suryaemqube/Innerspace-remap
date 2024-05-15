@@ -421,3 +421,9 @@ p, li {
 		),
 		linear-gradient(90deg, #28a92b, #10a614);
 }
+
+@media screen and (max-width: 768px){
+	.swiper-vertical{
+		touch-action:auto;
+	}	
+}
