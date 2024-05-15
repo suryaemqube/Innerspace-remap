@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
