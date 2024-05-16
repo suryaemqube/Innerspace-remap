@@ -81,7 +81,7 @@ const ScrollComponent = () => {
       }, // save the scroll position
       onChangeY: (self) => {
         isScroll = 0;
-        console.log("disable", isScroll);
+        console.log("disable", isScroll, self.savedScroll);
         self.scrollY(self.savedScroll); // refuse to scroll
       },
     });
@@ -91,7 +91,8 @@ const ScrollComponent = () => {
       const directV = directionValue;
 
       if (directV === "up") {
-        count = count + 1;
+        // count =  count + 1 ;
+        count = count < numPanels ?  count + 1 : count;
         console.log("gotoPanel up", count, numPanels);
         if (count === numPanels || count === -1) {
           intentObserver.disable();
@@ -139,7 +140,7 @@ const ScrollComponent = () => {
         onEnter: (self) => {
           console.log(count, "On Enter");
           if (preventScroll.isEnabled == false && count !== numPanels) {
-            self.scroll(self.start);
+            // self.scroll(self.start);
             preventScroll.enable();
             intentObserver.enable();
           }
